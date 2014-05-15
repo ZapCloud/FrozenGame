@@ -1,6 +1,7 @@
 package com.zapcloudstudios.frozen.utils;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -9,28 +10,30 @@ import org.bukkit.entity.Player;
 
 import com.zapcloudstudios.frozen.Frozen;
 
+
 public class SpawnHandler {
-
-	public static void teleportToArena() {
-
-		int counter = 0;
-
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			p.teleport(Frozen.arenaSpawns.get(counter++));
-		}
+	
+	static Random randomGenerator;
+	
+	public static void spawnPlayerRandom(Player p) {
+		
+		randomGenerator = new Random();
+		int number = randomGenerator.nextInt(Frozen.arenaSpawns.size());
+		
+		p.teleport(Frozen.arenaSpawns.get(number));
 	}
 
-	public static void loadSpawns(String arenaName){
+	public static void loadSpawns(){
 		ArrayList<Location> temp = new ArrayList<>();
 
-		int amount = Frozen.config.getInt("Spawns." + arenaName + ".amount");
+		int amount = Frozen.config.getInt("Spawns." + "amount");
 
-		World world = Bukkit.getWorld(Frozen.config.getString("Spawns." + arenaName + ".world"));
+		World world = Bukkit.getWorld(Frozen.config.getString("Spawns." + "world"));
 
 		for(int i = 1; i <= amount; i++){
-			double x = Frozen.config.getDouble("Spawns." + arenaName + "." + i + ".x");
-			double y = Frozen.config.getDouble("Spawns." + arenaName + "." + i + ".y");
-			double z = Frozen.config.getDouble("Spawns." + arenaName + "." + i + ".z");
+			double x = Frozen.config.getDouble("Spawns." + i + ".x");
+			double y = Frozen.config.getDouble("Spawns." + i + ".y");
+			double z = Frozen.config.getDouble("Spawns." + i + ".z");
 
 			temp.add(new Location(world, x, y, z));
 		}
@@ -38,15 +41,15 @@ public class SpawnHandler {
 		Frozen.arenaSpawns = temp;
 	}
 
-	public static void setSpawn(Player p, String arenaName){
-		int amount = Frozen.config.getInt("Spawns." + arenaName + ".amount");
+	public static void setSpawn(Player p){
+		int amount = Frozen.config.getInt("Spawns." + "amount");
 
 		int next = amount + 1;
 
 		World world = p.getWorld();
 
-		Frozen.config.set("Spawns." + arenaName + "amount", next);
-		Frozen.config.set("Spawns." + arenaName + "." + next + ".world", world);
+		Frozen.config.set("Spawns." + "amount", next);
+		Frozen.config.set("Spawns." + next + ".world", world);
 
 		Location loc = p.getLocation();
 
@@ -54,9 +57,9 @@ public class SpawnHandler {
 		double y = loc.getY();
 		double z = loc.getZ();
 
-		Frozen.config.set("Spawns." + arenaName + "." + next + ".x", x);
-		Frozen.config.set("Spawns." + arenaName + "." + next + ".y", y);
-		Frozen.config.set("Spawns." + arenaName + "." + next + ".z", z);
+		Frozen.config.set("Spawns." + next + ".x", x);
+		Frozen.config.set("Spawns." + next + ".y", y);
+		Frozen.config.set("Spawns." + next + ".z", z);
 
 		Frozen.plugin.saveConfig();
 	}
