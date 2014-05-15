@@ -12,9 +12,8 @@ public class GameManager {
 
 		Frozen.gameStarted = true;
 
-		SpawnHandler.teleportToArena();
-
 		for (Player p : Bukkit.getOnlinePlayers()) {
+			SpawnHandler.spawnPlayerRandom(p);
 			Frozen.players.add(p.getName());
 			Frozen.points.put(p.getName(), 0);
 			Frozen.kills.put(p.getName(), 0);
