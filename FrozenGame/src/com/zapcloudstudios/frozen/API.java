@@ -38,24 +38,12 @@ public class API {
 		Frozen.points.put(p.getName(), Frozen.points.get(p.getName()) - i);
 	}
 
-	public static void addKills(Player p, int i) {
-		Frozen.kills.put(p.getName(), Frozen.kills.get(p.getName()) + i);
-	}
-
-	public static void addDeaths(Player p, int i) {
-		Frozen.deaths.put(p.getName(), Frozen.deaths.get(p.getName()) + i);
-	}
-
-	public static int getKills(Player p) {
-		return Frozen.kills.get(p.getName());
-	}
-
-	public static int getDeaths(Player p) {
-		return Frozen.deaths.get(p.getName());
-	}
-
 	public static int getPoints(Player p) {
 		return Frozen.points.get(p.getName());
+	}
+	
+	public static int getAlive() {
+		return Frozen.totalAlive;
 	}
 
 	public static void firework(Player p) {
@@ -63,7 +51,7 @@ public class API {
 				EntityType.FIREWORK);
 		FireworkMeta fwmeta = fw.getFireworkMeta();
 		FireworkEffect.Builder builder = FireworkEffect.builder();
-		builder.withTrail().withFlicker().withFade(Color.GREEN).withColor(Color.WHITE).withColor(Color.YELLOW).with(FireworkEffect.Type.BALL_LARGE);
+		builder.withTrail().withFlicker().withFade(Color.BLUE).withColor(Color.WHITE).withColor(Color.BLUE).with(FireworkEffect.Type.BALL_LARGE);
 		fwmeta.addEffect(builder.build());
 		fwmeta.setPower(1);
 		fw.setFireworkMeta(fwmeta);

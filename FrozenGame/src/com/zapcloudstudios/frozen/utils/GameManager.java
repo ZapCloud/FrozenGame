@@ -1,7 +1,11 @@
 package com.zapcloudstudios.frozen.utils;
 
+import java.util.Random;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import com.zapcloudstudios.frozen.API;
 import com.zapcloudstudios.frozen.Frozen;
@@ -16,11 +20,15 @@ public class GameManager {
 			SpawnHandler.spawnPlayerRandom(p);
 			Frozen.players.add(p.getName());
 			Frozen.points.put(p.getName(), 0);
-			Frozen.kills.put(p.getName(), 0);
-			Frozen.deaths.put(p.getName(), 0);
 			Frozen.totalAlive++;
 			Frozen.scoreboard(p);
 		}
+		
+		Player random = Bukkit.getOnlinePlayers()[new Random().nextInt(Bukkit.getOnlinePlayers().length)];
+		
+		Frozen.frozenOne = random;
+		
+		Frozen.frozenOne.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 10, 255));
 
 		Bukkit.broadcastMessage("§cThe game has started! Last man standing wins!");
 	}

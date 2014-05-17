@@ -5,18 +5,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.zapcloudstudios.frozen.events.EntityDamage;
-import com.zapcloudstudios.frozen.events.EntityDamageByEntity;
-import com.zapcloudstudios.frozen.events.EntityDeath;
 import com.zapcloudstudios.frozen.events.PlayerDeath;
 import com.zapcloudstudios.frozen.events.PlayerDropItem;
 import com.zapcloudstudios.frozen.events.PlayerJoin;
 import com.zapcloudstudios.frozen.events.PlayerPickupItem;
 import com.zapcloudstudios.frozen.events.PlayerQuit;
+import com.zapcloudstudios.frozen.events.SnowballHit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.WorldCreator;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -29,9 +26,6 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 public class Frozen extends JavaPlugin implements Listener {
-
-	World Arenaworld, Lobbyworld;
-
 
 	public static Frozen plugin;
 
@@ -47,26 +41,22 @@ public class Frozen extends JavaPlugin implements Listener {
 	public static int totalAlive;
 
 	public static HashMap<String, Integer> points = new HashMap<>();
-	public static HashMap<String, Integer> kills = new HashMap<>();
-	public static HashMap<String, Integer> deaths = new HashMap<>();
+	
+	public static Player frozenOne;
 
 	public void onEnable() {
 
 		PluginManager pm = Bukkit.getPluginManager();
 		pm.registerEvents(new EntityDamage(), this);
-		pm.registerEvents(new EntityDamageByEntity(), this);
-		pm.registerEvents(new EntityDeath(), this);
 		pm.registerEvents(new PlayerDeath(), this);
 		pm.registerEvents(new PlayerDropItem(), this);
 		pm.registerEvents(new PlayerJoin(), this);
 		pm.registerEvents(new PlayerPickupItem(), this);
 		pm.registerEvents(new PlayerQuit(), this);
+		pm.registerEvents(new SnowballHit(), this);
 
-		getServer().createWorld(new WorldCreator("Arenaworld"));
-
-		Lobbyworld = Bukkit.getWorld("world");
-		Arenaworld = Bukkit.getWorld("Arenaworld");
-
+		frozenOne = null;
+		
 		totalAlive = 0;
 
 		plugin = this;
@@ -85,17 +75,14 @@ public class Frozen extends JavaPlugin implements Listener {
 		Scoreboard board = manager.getNewScoreboard();
 
 		Objective objective = board.registerNewObjective("Test", "Test2");
-		objective.setDisplayName("§f§lPVP");
+		objective.setDisplayName("§b§lFrozen");
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
-		Score score = objective.getScore(Bukkit.getOfflinePlayer("§6Kills"));
-		score.setScore(API.getKills(p));
+		Score score = objective.getScore(Bukkit.getOfflinePlayer("§6Alive"));
+		score.setScore(API.getAlive());
 
-		Score score2 = objective.getScore(Bukkit.getOfflinePlayer("§6Deaths"));
-		score2.setScore(API.getDeaths(p));
-
-		Score score3 = objective.getScore(Bukkit.getOfflinePlayer("§6Points"));
-		score3.setScore(API.getPoints(p));
+		Score score2 = objective.getScore(Bukkit.getOfflinePlayer("§6Points"));
+		score2.setScore(API.getPoints(p));
 
 		p.setScoreboard(board);
 	}
