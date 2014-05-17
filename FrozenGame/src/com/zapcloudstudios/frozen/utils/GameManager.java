@@ -4,9 +4,6 @@ import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-
 import com.zapcloudstudios.frozen.API;
 import com.zapcloudstudios.frozen.Frozen;
 
@@ -26,16 +23,18 @@ public class GameManager {
 		
 		Player random = Bukkit.getOnlinePlayers()[new Random().nextInt(Bukkit.getOnlinePlayers().length)];
 		
-		Frozen.frozenOne = random;
+		API.setFrozenOne(random, 15);
 		
-		Frozen.frozenOne.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 10, 255));
-
-		Bukkit.broadcastMessage("§cThe game has started! Last man standing wins!");
+		for(Player p : Bukkit.getOnlinePlayers()){
+			p.sendMessage("§cThe game has started! Last player alive wins!");
 	}
-
+}
+	
 	@SuppressWarnings("deprecation")
 	public static void endGame() {
-
+		
+		Bukkit.getScheduler().cancelAllTasks();
+	
 		Frozen.gameEnded = true;
 
 		Player winner = null;

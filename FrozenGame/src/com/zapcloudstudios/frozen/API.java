@@ -16,12 +16,26 @@ import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class API {
+import com.zapcloudstudios.frozen.utils.GameManager;
+import com.zapcloudstudios.frozen.utils.SlownessTimer;
 
+public class API {
+	
+	static Frozen instance;
+	
+	public API(Frozen instance){
+	API.instance = instance;
+	}
+	
 	public static void setSpectator(Player p) {
 
 		Frozen.players.remove(p.getName());
-
+		Frozen.totalAlive--;
+		
+		if(Frozen.totalAlive <= 1){
+			GameManager.endGame();
+		}else {
+			
 		p.setAllowFlight(true);
 		p.setFlying(true);
 
@@ -31,11 +45,14 @@ public class API {
 
 		p.sendMessage("§aYou are now a spectator!");
 	}
-
+}
 	public static void setFrozenOne(Player p, int blindTime) {
+		Bukkit.getScheduler().cancelAllTasks();
 		Frozen.frozenOne = p;
 		Frozen.frozenOne.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, blindTime, 255));
-		Frozen.frozenOne
+		Frozen.slowAmount = 0;
+		SlownessTimer timer = new SlownessTimer();
+		timer.runTaskTimer(instance, 500, 500);
 	}
 	
 	public static void addPoints(Player p, int i) {

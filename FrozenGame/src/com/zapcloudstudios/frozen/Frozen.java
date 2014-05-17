@@ -44,6 +44,8 @@ public class Frozen extends JavaPlugin implements Listener {
 	
 	public static Player frozenOne;
 
+	public static Integer slowAmount;
+	
 	public void onEnable() {
 
 		PluginManager pm = Bukkit.getPluginManager();
@@ -86,4 +88,5 @@ public class Frozen extends JavaPlugin implements Listener {
 
 		p.setScoreboard(board);
 	}
+	
 }
