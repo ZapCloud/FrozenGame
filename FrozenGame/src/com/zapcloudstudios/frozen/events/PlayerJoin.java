@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import com.zapcloudstudios.frozen.API;
 import com.zapcloudstudios.frozen.Frozen;
 import com.zapcloudstudios.frozen.utils.GameManager;
+import com.zapcloudstudios.frozen.utils.LobbyManager;
 import com.zapcloudstudios.frozen.utils.SpawnHandler;
 
 public class PlayerJoin implements Listener {
@@ -19,6 +20,8 @@ public class PlayerJoin implements Listener {
 		Player p = e.getPlayer();
 
 		if (!Frozen.gameStarted) {
+			p.teleport(LobbyManager.lobby);
+			
 			if (Bukkit.getOnlinePlayers().length >= 18) {
 				GameManager.startGame();
 			}

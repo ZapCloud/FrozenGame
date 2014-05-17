@@ -28,7 +28,7 @@ public class SpawnHandler {
 
 		int amount = Frozen.config.getInt("Spawns." + "amount");
 
-		World world = Bukkit.getWorld(Frozen.config.getString("Spawns." + "world"));
+		World world = Bukkit.getWorld(Frozen.config.getString("Spawns.world"));
 
 		for(int i = 1; i <= amount; i++){
 			double x = Frozen.config.getDouble("Spawns." + i + ".x");
@@ -42,14 +42,14 @@ public class SpawnHandler {
 	}
 
 	public static void setSpawn(Player p){
-		int amount = Frozen.config.getInt("Spawns." + "amount");
+		int amount = Frozen.config.getInt("Spawns.amount");
 
 		int next = amount + 1;
 
 		World world = p.getWorld();
 
-		Frozen.config.set("Spawns." + "amount", next);
-		Frozen.config.set("Spawns." + next + ".world", world);
+		Frozen.config.set("Spawns.amount", next);
+		Frozen.config.set("Spawns.world", world);
 
 		Location loc = p.getLocation();
 

@@ -48,5 +48,9 @@ public class GameManager {
 		if(winner != null){
 			API.firework(winner);
 		}
+		
+		for(Player p : Bukkit.getOnlinePlayers()) {
+			p.teleport(LobbyManager.lobby);
+		}
 	}
 }
