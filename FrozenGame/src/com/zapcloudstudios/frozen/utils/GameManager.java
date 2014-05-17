@@ -18,7 +18,7 @@ public class GameManager {
 			Frozen.players.add(p.getName());
 			Frozen.points.put(p.getName(), 0);
 			Frozen.totalAlive++;
-			Frozen.scoreboard(p);
+			Frozen.gameScoreboard();
 		}
 		
 		Player random = Bukkit.getOnlinePlayers()[new Random().nextInt(Bukkit.getOnlinePlayers().length)];
@@ -51,5 +51,10 @@ public class GameManager {
 		for(Player p : Bukkit.getOnlinePlayers()) {
 			p.teleport(LobbyManager.lobby);
 		}
+		
+		Frozen.players.clear();
+		Frozen.spectators.clear();
+		Frozen.totalAlive = 0;
+		Frozen.frozenOne = null;
 	}
 }

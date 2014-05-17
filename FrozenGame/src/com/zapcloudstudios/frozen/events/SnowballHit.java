@@ -42,7 +42,7 @@ public void onSnowballHit(EntityDamageByEntityEvent event)
         					| InvocationTargetException e1) {
         				e1.printStackTrace();
         			}
-            		Frozen.scoreboard(pl);
+            		Frozen.gameScoreboard();
         		}
             
         		API.addPoints(playerThrower, 5);

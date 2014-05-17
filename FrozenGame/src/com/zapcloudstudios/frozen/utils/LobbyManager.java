@@ -13,6 +13,7 @@ public class LobbyManager {
 	
 	public static void teleportToLobby(Player p) {
 	p.teleport(lobby);
+	Frozen.removeScoreboard(p);
 	}
 	
 	public static void loadLobbySpawn() {

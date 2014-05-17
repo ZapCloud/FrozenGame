@@ -72,21 +72,27 @@ public class Frozen extends JavaPlugin implements Listener {
 	}
 
 	@SuppressWarnings("deprecation")
-	public static void scoreboard(Player p) {
-		ScoreboardManager manager = Bukkit.getScoreboardManager();
-		Scoreboard board = manager.getNewScoreboard();
+	public static void gameScoreboard() {
+		for(Player p : Bukkit.getOnlinePlayers()){
+			ScoreboardManager manager = Bukkit.getScoreboardManager();
+			Scoreboard board = manager.getNewScoreboard();
 
-		Objective objective = board.registerNewObjective("Test", "Test2");
-		objective.setDisplayName("§b§lFrozen");
-		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+			Objective objective = board.registerNewObjective("Test", "Test2");
+			objective.setDisplayName("§b§lFrozen");
+			objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
-		Score score = objective.getScore(Bukkit.getOfflinePlayer("§6Alive"));
-		score.setScore(API.getAlive());
+			Score score = objective.getScore(Bukkit.getOfflinePlayer("§6Alive"));
+			score.setScore(API.getAlive());
 
-		Score score2 = objective.getScore(Bukkit.getOfflinePlayer("§6Points"));
-		score2.setScore(API.getPoints(p));
+			Score score2 = objective.getScore(Bukkit.getOfflinePlayer("§6Points"));
+			score2.setScore(API.getPoints(p));
 
-		p.setScoreboard(board);
+			p.setScoreboard(board);
+	}
+	}
+
+	public static void removeScoreboard(Player p){
+		p.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
 	}
 	
 }
