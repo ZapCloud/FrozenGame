@@ -13,6 +13,8 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class API {
 
@@ -30,6 +32,12 @@ public class API {
 		p.sendMessage("§aYou are now a spectator!");
 	}
 
+	public static void setFrozenOne(Player p, int blindTime) {
+		Frozen.frozenOne = p;
+		Frozen.frozenOne.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, blindTime, 255));
+		Frozen.frozenOne
+	}
+	
 	public static void addPoints(Player p, int i) {
 		Frozen.points.put(p.getName(), Frozen.points.get(p.getName()) + i);
 	}

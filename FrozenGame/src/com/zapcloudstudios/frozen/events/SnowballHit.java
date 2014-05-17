@@ -10,6 +10,8 @@ import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import com.zapcloudstudios.frozen.API;
 import com.zapcloudstudios.frozen.Frozen;
@@ -47,7 +49,9 @@ public void onSnowballHit(EntityDamageByEntityEvent event)
         		}
             
         		API.addPoints(playerThrower, 5);
-
+        		Frozen.frozenOne = playerHit;
+        		Frozen.frozenOne.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 5, 255));
+        		
         }
     }else {
     	event.setCancelled(true);
