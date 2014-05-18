@@ -48,7 +48,7 @@ public class API {
 	public static void setFrozenOne(Player p, int blindTime) {
 		Bukkit.getScheduler().cancelAllTasks();
 		Frozen.frozenOne = p;
-		Frozen.frozenOne.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, blindTime, 255));
+		Frozen.frozenOne.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, (blindTime * 20), 255));
 		Frozen.slowAmount = 0;
 		Bukkit.getScheduler().scheduleSyncDelayedTask(Frozen.plugin, new Runnable(){
 			public void run() {

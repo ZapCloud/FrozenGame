@@ -10,6 +10,9 @@ import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+
 import com.zapcloudstudios.frozen.API;
 import com.zapcloudstudios.frozen.Frozen;
 import com.zapcloudstudios.frozen.utils.ParticleUtils;
@@ -43,8 +46,11 @@ public void onSnowballHit(EntityDamageByEntityEvent event)
         				e1.printStackTrace();
         			}
             		Frozen.gameScoreboard();
+            		pl.sendMessage("§b" + playerHit.getDisplayName() + " §6is now the Frozen One!");
         		}
             
+        		playerThrower.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 0, 0), true);
+        		playerThrower.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 0, 0), true);
         		API.addPoints(playerThrower, 5);
         		API.setFrozenOne(playerHit, 5);
         		

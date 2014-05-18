@@ -20,18 +20,22 @@ public class PlayerJoin implements Listener {
 	public void onJoin(PlayerJoinEvent e) {
 
 		Player p = e.getPlayer();
+		Frozen.points.put(p.getName(), 0);
 		p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 0, 0), true);
 		if (!Frozen.gameStarted) {
 			p.teleport(LobbyManager.lobby);
 			p.getInventory().clear();
 			if (Bukkit.getOnlinePlayers().length >= 2) {
-				GameManager.startGame();
+				Bukkit.getScheduler().scheduleSyncDelayedTask(Frozen.plugin, new Runnable(){
+					public void run() {
+						GameManager.startGame();
+						}
+					}, 20);
 			}
 		}else {
 			API.setSpectator(p);
 			SpawnHandler.spawnPlayerRandom(p);
 		}
-
 		p.sendMessage("§6Welcome to §bFrozen§6!");
 		p.setFoodLevel(20);
 	}

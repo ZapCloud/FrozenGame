@@ -14,8 +14,6 @@ public class GameManager {
 
 	public static void startGame() {
 
-		Frozen.gameStarted = true;
-
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			SpawnHandler.spawnPlayerRandom(p);
 			Frozen.players.add(p.getName());
@@ -31,6 +29,7 @@ public class GameManager {
 		for(Player p : Bukkit.getOnlinePlayers()){
 			p.sendMessage("§cThe game has started! Last player alive wins!");
 	}
+		Frozen.gameStarted = true;
 }
 	
 	@SuppressWarnings("deprecation")
@@ -45,9 +44,12 @@ public class GameManager {
 
 		for(String s : Frozen.players){
 			winner = Bukkit.getPlayer(s);
-			Bukkit.broadcastMessage("§cThe game has ended! Winner: " + s);
+			for(Player pl : Bukkit.getOnlinePlayers()) {
+				pl.kickPlayer("Game Ended, Winner: " + s);
+			// Bukkit.broadcastMessage("§cThe game has ended! Winner: " + s);
+			}
 		}
-
+		
 		if(winner != null){
 			API.firework(winner);
 		}

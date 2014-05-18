@@ -1,0 +1,9 @@
+author: SpiderRobotMan
+database: false
+description: A Minigame Created By ZapCloud Studios
+generator: http://dinnerbone.com/minecraft/tools/pluginator/
+main: com.zapcloudstudios.frozen.Frozen
+name: Frozen
+startup: startup
+url: http://www.zapcloudstudios.com/
+version: '0.1'

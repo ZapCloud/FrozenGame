@@ -3,6 +3,7 @@ package com.zapcloudstudios.frozen.events;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
@@ -17,6 +18,7 @@ public class SnowBallThrow implements Listener {
 		if(Frozen.gameStarted) {
 		if(!(Frozen.frozenOne == null)) {
 		if(event.getEntity().getShooter() instanceof Player) {
+		if(event.getEntity() instanceof Snowball) {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(Frozen.plugin, new Runnable(){
 				public void run() {
 					ItemStack snowball = new ItemStack(Material.SNOW_BALL);
@@ -24,6 +26,7 @@ public class SnowBallThrow implements Listener {
 					}
 				}, 10);
 			}
+		}
 		}
 	}
 }
