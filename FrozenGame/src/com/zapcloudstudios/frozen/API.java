@@ -52,9 +52,12 @@ public class API {
 		Frozen.frozenOne = p;
 		Frozen.frozenOne.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, blindTime, 255));
 		Frozen.slowAmount = 0;
+		startSlowTimer();
+	}
+	
+	public static void startSlowTimer() {
 		SlownessTimer timer = new SlownessTimer();
 		timer.runTaskTimer(instance, 500, 500);
-
 	}
 	
 	public static void addPoints(Player p, int i) {

@@ -8,6 +8,7 @@ import com.zapcloudstudios.frozen.events.EntityDamage;
 import com.zapcloudstudios.frozen.events.PlayerDeath;
 import com.zapcloudstudios.frozen.events.PlayerDropItem;
 import com.zapcloudstudios.frozen.events.PlayerJoin;
+import com.zapcloudstudios.frozen.events.PlayerMove;
 import com.zapcloudstudios.frozen.events.PlayerPickupItem;
 import com.zapcloudstudios.frozen.events.PlayerQuit;
 import com.zapcloudstudios.frozen.events.SnowballHit;
@@ -35,6 +36,7 @@ public class Frozen extends JavaPlugin implements Listener {
 	public static ArrayList<String> spectators = new ArrayList<>();
 
 	public static ArrayList<Location> arenaSpawns = new ArrayList<>();
+	public static ArrayList<Location> enderCrystals = new ArrayList<>();
 
 	public static FileConfiguration config;
 
@@ -56,6 +58,7 @@ public class Frozen extends JavaPlugin implements Listener {
 		pm.registerEvents(new PlayerPickupItem(), this);
 		pm.registerEvents(new PlayerQuit(), this);
 		pm.registerEvents(new SnowballHit(), this);
+		pm.registerEvents(new PlayerMove(), this);
 
 		frozenOne = null;
 		
@@ -88,7 +91,8 @@ public class Frozen extends JavaPlugin implements Listener {
 			score2.setScore(API.getPoints(p));
 
 			p.setScoreboard(board);
-	}
+
+		}
 	}
 
 	public static void removeScoreboard(Player p){
