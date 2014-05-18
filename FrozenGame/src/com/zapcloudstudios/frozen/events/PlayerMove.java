@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import com.zapcloudstudios.frozen.API;
 import com.zapcloudstudios.frozen.Frozen;
@@ -19,10 +21,11 @@ public class PlayerMove implements Listener {
 	@EventHandler
 	public static void onPlayerMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
-		for(Entity ent : p.getNearbyEntities(2, 4, 2)) {
+		for(Entity ent : p.getNearbyEntities(1, 3, 1)) {
 			if(ent instanceof EnderCrystal) {
 				Bukkit.getScheduler().cancelAllTasks();
 				Frozen.slowAmount = 0;
+				p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 0, 0), true);
 				API.startSlowTimer();
 
 				for(Player pl : Bukkit.getOnlinePlayers()) {

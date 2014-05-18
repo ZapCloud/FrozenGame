@@ -31,14 +31,18 @@ public class PlayerQuit implements Listener {
 				}
 			}else {
 				if(Frozen.frozenOne == p){
-					int random = new Random().nextInt(Frozen.players.size());
-					String player = Frozen.players.get(random);
-					Player pl = Bukkit.getPlayer(player);
-					API.setFrozenOne(pl, 5);
+					if(!(Bukkit.getOnlinePlayers().length <= 2)) {
+						int random = new Random().nextInt(Frozen.players.size());
+						String player = Frozen.players.get(random);
+						Player pl = Bukkit.getPlayer(player);
+						API.setFrozenOne(pl, 5);
+					}else {
+						GameManager.endGame();
+					}
+				}	
 			}
 		}
 	}
-}
 }
 
 

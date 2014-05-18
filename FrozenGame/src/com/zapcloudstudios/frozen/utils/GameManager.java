@@ -4,6 +4,9 @@ import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+
 import com.zapcloudstudios.frozen.API;
 import com.zapcloudstudios.frozen.Frozen;
 
@@ -36,6 +39,7 @@ public class GameManager {
 		Bukkit.getScheduler().cancelAllTasks();
 	
 		Frozen.gameEnded = true;
+		Frozen.gameStarted = false;
 
 		Player winner = null;
 
@@ -50,6 +54,7 @@ public class GameManager {
 		
 		for(Player p : Bukkit.getOnlinePlayers()) {
 			p.teleport(LobbyManager.lobby);
+			p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 0, 0), true);
 		}
 		
 		Frozen.players.clear();

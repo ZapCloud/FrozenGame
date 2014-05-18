@@ -5,6 +5,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import com.zapcloudstudios.frozen.API;
 import com.zapcloudstudios.frozen.Frozen;
@@ -18,11 +20,11 @@ public class PlayerJoin implements Listener {
 	public void onJoin(PlayerJoinEvent e) {
 
 		Player p = e.getPlayer();
-
+		p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 0, 0), true);
 		if (!Frozen.gameStarted) {
 			p.teleport(LobbyManager.lobby);
-			
-			if (Bukkit.getOnlinePlayers().length >= 18) {
+			p.getInventory().clear();
+			if (Bukkit.getOnlinePlayers().length >= 2) {
 				GameManager.startGame();
 			}
 		}else {
@@ -30,6 +32,7 @@ public class PlayerJoin implements Listener {
 			SpawnHandler.spawnPlayerRandom(p);
 		}
 
-		API.json(p, "§fWelcome to §6Frozen ", "§bClick Here", "hoverEvent", "show_text", "§cClick to see stats", "run_command", "/frozen stats");
+		p.sendMessage("§6Welcome to §bFrozen§6!");
+		p.setFoodLevel(20);
 	}
 }

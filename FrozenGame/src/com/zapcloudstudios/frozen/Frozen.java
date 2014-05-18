@@ -5,13 +5,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.zapcloudstudios.frozen.events.EntityDamage;
+import com.zapcloudstudios.frozen.events.FoodLevelChange;
 import com.zapcloudstudios.frozen.events.PlayerDeath;
 import com.zapcloudstudios.frozen.events.PlayerDropItem;
 import com.zapcloudstudios.frozen.events.PlayerJoin;
 import com.zapcloudstudios.frozen.events.PlayerMove;
 import com.zapcloudstudios.frozen.events.PlayerPickupItem;
 import com.zapcloudstudios.frozen.events.PlayerQuit;
+import com.zapcloudstudios.frozen.events.SnowBallThrow;
 import com.zapcloudstudios.frozen.events.SnowballHit;
+import com.zapcloudstudios.frozen.utils.LobbyManager;
+import com.zapcloudstudios.frozen.utils.SpawnHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -59,7 +63,9 @@ public class Frozen extends JavaPlugin implements Listener {
 		pm.registerEvents(new PlayerQuit(), this);
 		pm.registerEvents(new SnowballHit(), this);
 		pm.registerEvents(new PlayerMove(), this);
-
+		pm.registerEvents(new SnowBallThrow(), this);
+		pm.registerEvents(new FoodLevelChange(), this);
+		
 		frozenOne = null;
 		
 		totalAlive = 0;
@@ -72,6 +78,11 @@ public class Frozen extends JavaPlugin implements Listener {
 
 		gameStarted = false;
 		gameEnded = false;
+		
+		players.clear();
+		
+		LobbyManager.loadLobbySpawn();
+		SpawnHandler.loadSpawns();
 	}
 
 	@SuppressWarnings("deprecation")
